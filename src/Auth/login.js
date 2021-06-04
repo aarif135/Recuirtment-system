@@ -8,7 +8,7 @@ function Login() {
   let history = useHistory();
   const dispatch = useDispatch();
   const [userInfo, setUserInfo] = useState({});
-
+  const data = useSelector((state) => state.authReducer);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = userInfo;
@@ -62,8 +62,15 @@ function Login() {
           onChange={(e) => onHandleChange(e, "password")}
         />
       </Form.Item>
+      {data.error ? <p style={{textAlign:"center",color:"red"}}>{data.error}</p> : ""}
+
       <Form.Item style={{ display: "flex", justifyContent: "center" }}>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button
+          loading={data.isLoading}
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+        >
           Log in
         </Button>
         <p

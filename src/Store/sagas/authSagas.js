@@ -1,9 +1,11 @@
 import { takeEvery, takeLatest, call, put } from "redux-saga/effects";
 import { loginWithEmail } from "../../config";
+import { errorLoginRequest, succesLoginRequest } from "../actions/authAction";
 export function* loginRequest(action) {
   try {
     const res = yield call(apiData, action.body);
     localStorage.setItem("users", JSON.stringify(res));
+    yield put(succesLoginRequest(res));
     if (res) {
       if (res.role === "student") {
         action.stdCb();
@@ -16,7 +18,7 @@ export function* loginRequest(action) {
       }
     }
   } catch (e) {
-    console.log(e);
+    yield put(errorLoginRequest("error occur while login"));
   }
 }
 

@@ -24,16 +24,12 @@ export const RegisterWithEmail = async (email, password, userInfo, cb) => {
 
 export const loginWithEmail = async (email, password) => {
   const db = firebase.firestore();
-  try {
-    const loginUser = await firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
-    const userInfo = await db.collection("users").doc(loginUser.user.uid).get();
-    return userInfo.data();
-  } catch (e) {
-    alert("Email/password is incorrect");
-    return "unable to login user";
-  }
+
+  const loginUser = await firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password);
+  const userInfo = await db.collection("users").doc(loginUser.user.uid).get();
+  return userInfo.data();
 };
 
 export const postAJob = async (data, cb, users) => {
@@ -45,7 +41,6 @@ export const postAJob = async (data, cb, users) => {
     cb();
     return postJob;
   } catch (e) {
-    console.log(e);
     return "Unable to post a new job";
   }
 };
