@@ -53,7 +53,7 @@ export const getMyJob = async (uId) => {
 
 export const fetchAllStudents = async () => {
   const db = firebase.firestore();
-  const allStudents = await db.collection("studentDetail");
+  const allStudents = await db.collection("studentDetail").get();
   return allStudents;
 };
 

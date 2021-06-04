@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest, call, put } from "redux-saga/effects";
+import { takeLatest, call, put } from "redux-saga/effects";
 import { loginWithEmail } from "../../config";
 import { errorLoginRequest, succesLoginRequest } from "../actions/authAction";
 export function* loginRequest(action) {
